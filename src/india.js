@@ -297,10 +297,6 @@ const 地址变图像元素 = (地址, 回调) => {
   添加事件监控(图, "load", (_) => 回调(图));
   图.src = 地址;
 };
-const 日志 = (_) =>
-  (新建图().src = `https://lab.magiconch.com/api/china-ex/log?levels=${获取所有省等级们().join(
-    ""
-  )}`);
 
 const 保存图像 = (_) => {
   const 文档文本 = `<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${宽} ${高}" width="${宽}px" height="${高}px">${图形.innerHTML}</svg>`;
@@ -327,10 +323,48 @@ const 保存图像 = (_) => {
       输出图像.querySelector("img").src = 地址;
     }, "image/png");
   });
-  日志();
 };
 
 添加事件监控(保存, "click", 保存图像);
+
+const shareImage = (_) => {
+  const 文档文本 = `<?xml version="1.0" encoding="utf-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${宽} ${高}" width="${宽}px" height="${高}px">${图形.innerHTML}</svg>`;
+  const 数据地址 = 从文档文本新建图形文件(文档文本);
+  地址变图像元素(数据地址, (图) => {
+    上下文.fillStyle = 如何做爱元素.style.backgroundColor; //'#b4b4ef';
+    上下文.fillRect(0, 0, 宽 * 比, 宽 * 比);
+    上下文.drawImage(
+      图,
+      0,
+      0,
+      宽,
+      高,
+      0,
+      ((宽 - 高) * 比) / 2,
+      宽 * 比,
+      高 * 比
+    );
+    画板.toBlob((元素数据) => {
+      const 地址 = URL.createObjectURL(元素数据);
+      console.log("URL", 地址);
+      Navigator.share({
+        title: "India Level",
+        text: "India Level",
+        url: 地址,
+      });
+
+      输出图像.style.display = "";
+      输出图像.querySelector("img").src = 地址;
+    }, "image/png");
+  });
+};
+
+const shareButton = document.querySelector("#share");
+
+shareButton.addEventListener("click", (_) => {
+  console.log("share");
+  shareImage();
+});
 
 添加事件监控(输出图像.querySelector("a"), "click", (_) => {
   输出图像.style.display = "none";
